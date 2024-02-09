@@ -71,14 +71,15 @@ public class BurgerTest {
     @Test
     public void getPrice() {
         Mockito.lenient().when(bunMock.getName()).thenReturn("WTF");
-        Mockito.when(bunMock.getPrice()).thenReturn(300f);
         Mockito.lenient().when(ingredientMock.getName()).thenReturn("Cheese sauce");
+        Mockito.when(bunMock.getPrice()).thenReturn(300f);
         Mockito.when(ingredientMock.getPrice()).thenReturn(100f);
         Mockito.lenient().when(ingredientMock.getType()).thenReturn(IngredientType.SAUCE);
         burger.setBuns(bunMock);
         burger.addIngredient(ingredientMock);
         float actual = burger.getPrice();
-        assertEquals(700, actual, 0);
+        float expectedPriceDoubleBun = bunMock.getPrice() * 2 + ingredientMock.getPrice();
+        assertEquals(expectedPriceDoubleBun, actual, 0);
     }
 
     @Test
